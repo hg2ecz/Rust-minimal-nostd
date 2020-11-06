@@ -56,5 +56,4 @@ pub extern "C" fn _start() -> ! {
     let s = "Hello, World!\n";
     asm_write(&s);
     asm_exit(42);
-    // or loop {}
 }
