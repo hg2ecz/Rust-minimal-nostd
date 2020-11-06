@@ -17,10 +17,10 @@ extern "C" {
 
 #[no_mangle] // don't mangle the name of this function
 pub extern "C" fn _start() -> ! {
-    let s = b"Hello, World!\n";
+    let s = "Hello, World!\n";
     unsafe {
-        write(1, s as *const u8 as *const i8, s.len());
-        exit(0);
+        write(1, s.as_ptr() as *const i8, s.len());
+        exit(42);
     }
     // or loop()
 }
