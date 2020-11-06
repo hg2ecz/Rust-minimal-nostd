@@ -43,9 +43,9 @@ fn asm_exit(retval: i64) {
         );
         #[cfg(target_arch = "aarch64")]
         asm!(
-        "svc 0",
-                in("w8") 0x5d,
-                in("x0") retval, // system call number (sys_exit)
+            "svc 0",
+            in("w8") 0x5d,
+            in("x0") retval, // system call number (sys_exit)
         );
     }
 }
