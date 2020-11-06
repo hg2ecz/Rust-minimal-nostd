@@ -33,7 +33,7 @@ fn asm_write(s: &str) {
     }
 }
 
-fn asm_exit(retval: i64) {
+fn asm_exit(retval: i64) -> ! {
     unsafe {
         #[cfg(target_arch = "x86_64")]
         asm!(
@@ -48,13 +48,13 @@ fn asm_exit(retval: i64) {
             in("x0") retval, // exit value
         );
     }
+    loop {}
 }
 
 #[no_mangle] // don't mangle the name of this function
 pub extern "C" fn _start() -> ! {
     let s = "Hello, World!\n";
     asm_write(&s);
-    loop {
-        asm_exit(42);
-    }
+    asm_exit(42);
+    // or loop {}
 }
