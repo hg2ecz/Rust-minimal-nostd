@@ -11,7 +11,7 @@ fn panic(_info: &PanicInfo) -> ! {
 
 #[link(name = "c")]
 extern "C" {
-    fn write(fd: i32, buf: *const i8, count: usize) -> isize;
+    fn write(fd: i32, buf: *const u8, count: usize) -> isize;
     fn exit(status: i32) -> !;
 }
 
@@ -19,7 +19,7 @@ extern "C" {
 pub extern "C" fn _start() -> ! {
     let s = "Hello, World!\n";
     unsafe {
-        write(1, s.as_ptr() as *const i8, s.len());
+        write(1, s.as_ptr(), s.len());
         exit(42);
     }
     // or loop()
