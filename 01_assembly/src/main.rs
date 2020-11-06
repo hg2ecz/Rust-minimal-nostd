@@ -25,7 +25,7 @@ fn asm_write(s: &str) {
         asm!(
             "svc 0",
             in("w8") 0x40, // syscall number
-            in("x0") 1, // fd (stdout)
+            in("x0") 1,    // fd (stdout)
             in("x1") s.as_ptr(),
             in("x2") s.len(),
             //lateout("w8") ret,
@@ -38,14 +38,14 @@ fn asm_exit(retval: i64) {
         #[cfg(target_arch = "x86_64")]
         asm!(
             "syscall",
-            in("rax") 0x3c,     // system call number (sys_exit)
+            in("rax") 0x3c,   // system call number (sys_exit)
             in("rdi") retval, // exit value
         );
         #[cfg(target_arch = "aarch64")]
         asm!(
             "svc 0",
-            in("w8") 0x5d,
-            in("x0") retval, // system call number (sys_exit)
+            in("w8") 0x5d,   // system call number (sys_exit)
+            in("x0") retval, // exit value
         );
     }
 }
